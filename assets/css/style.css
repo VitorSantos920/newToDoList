@@ -1,0 +1,176 @@
+/*  
+=====
+Global Styles
+=====
+*/
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Bebas Neue", cursive;
+}
+
+body {
+  padding: 16px;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  background-image: linear-gradient(
+    45deg,
+    rgb(44, 120, 170),
+    rgb(55, 108, 143),
+    rgb(8, 91, 124)
+  );
+}
+
+ul {
+  list-style: none;
+}
+/*  
+=====
+List Container Styles
+=====
+*/
+
+.list {
+  gap: 20px;
+  width: 516px;
+  padding: 3em;
+  display: flex;
+  max-width: 546px;
+  text-align: center;
+  flex-direction: column;
+  background-color: rgb(255, 215, 245);
+}
+
+.list header {
+  gap: 10px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.list header img {
+  width: 35px;
+  height: 35px;
+}
+
+/*  
+=====
+Task-input + Submit Button Styles
+=====
+*/
+.task-input,
+.btn {
+  border: none;
+  padding: 1em;
+  transition: 1s;
+  border-radius: 10px;
+}
+
+.task-input:focus,
+input[type="submit"]:hover {
+  box-shadow: inset 0 0 4px 2px black;
+  background-color: rgb(255, 163, 232);
+}
+
+/*  
+=====
+Task-input Styles
+=====
+*/
+.task-input {
+  outline: 0;
+  width: 70%;
+  min-width: 100px;
+  margin-right: 5px;
+}
+
+.task-input:focus::placeholder {
+  color: rgb(0, 0, 0);
+}
+
+/*  
+=====
+Submit Button Styles
+=====
+*/
+.btn {
+  letter-spacing: 0.3px;
+}
+
+.list-task li:first-child {
+  margin-top: 0;
+}
+
+.list-task li {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  margin: 1.5em 0;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 1px 1px 6px 1px black;
+  background-color: rgb(253, 190, 237);
+  transition: 1s;
+}
+
+li p {
+  text-align: left;
+  margin-left: 20px;
+  width: 50%;
+  word-wrap: break-word;
+}
+
+li .btn:hover {
+  background-color: rgb(253, 138, 224);
+}
+
+/*  
+=====
+Reponsive Styles
+=====
+*/
+@media screen and (max-width: 610px) {
+  .list {
+    width: 80vw;
+    padding: 1em;
+  }
+}
+
+@media screen and (max-width: 372px) {
+  .task-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .task-input {
+    margin-right: 0;
+  }
+
+  .list-task li {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  li p {
+    text-align: center;
+    margin: 0;
+  }
+
+  .btn {
+    padding: 0.3em;
+    width: 70%;
+    border-radius: 3px;
+  }
+}
