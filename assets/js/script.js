@@ -6,13 +6,13 @@ const list = document.querySelector(".list-task");
 
 btnSubmit.addEventListener("click", () => {
   const task = document.querySelector(".task-input");
-
-  task.value === "" || task.value === " "
-    ? alert("O nome da tarefa não pode ser vazio.")
-    : addTask(task);
+  let taskDesc = task.value.trim();
+  taskDesc
+    ? addTask(task, taskDesc)
+    : alert("O nome da tarefa não pode ser vazio.");
 });
 
-function addTask(task) {
+function addTask(task, taskDesc) {
   let items = template.content.cloneNode(true);
   let li = items.querySelector("li");
 
@@ -20,9 +20,8 @@ function addTask(task) {
   let p = items.querySelector(".desc-item");
   let btn = items.querySelector("button");
 
-  p.innerText = task.value;
-  tasks.push(task.value);
-  console.log(tasks);
+  p.innerText = taskDesc;
+  tasks.push(taskDesc);
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
 

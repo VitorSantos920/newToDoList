@@ -39,6 +39,8 @@ List Container Styles
   width: 516px;
   padding: 3em;
   display: flex;
+  border-radius: 10px;
+  border: 3px solid rgb(14, 40, 58);
   max-width: 546px;
   text-align: center;
   flex-direction: column;
