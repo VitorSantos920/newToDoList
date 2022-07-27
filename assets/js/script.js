@@ -1,4 +1,5 @@
 const btnSubmit = document.querySelector("[type='submit']");
+const cardNotify = document.querySelector(".card-notify");
 let tasks = [];
 
 const template = document.querySelector("template");
@@ -28,6 +29,22 @@ function addTask(task, taskDesc) {
   li.append(cb, p, btn);
   list.append(li);
 
+  // Card Notify
+  cardNotify.style.background = "#94ff94"
+  cardNotify.children[1].innerText = `Tarefa: "${p.innerText}" Adicionada com Sucesso!`
+  cardNotify.children[0].src = "assets/img/added.png"
+  cardNotify.animate(
+    [
+      { opacity: "0" },
+      { opacity: "1" },
+      {opacity: "0"}
+    ], 
+    {
+      duration: 3000,
+    }
+  );
+
+  // User Interaction
   task.value = "";
   task.focus();
 }
@@ -36,6 +53,22 @@ function removeTask(item) {
   let remoteIndex = tasks.indexOf(item.children[1].innerHTML); // Índice do elemento removido
   item.remove(item); // Tela
   tasks.splice(remoteIndex, 1); // Array
+  
+
+  cardNotify.style.background = "#eb7979"
+  cardNotify.children[1].innerText = `Tarefa: "${item.children[1].innerText}" Removida com Sucesso!`
+  cardNotify.children[0].src = "assets/img/removed.png"
+  cardNotify.animate(
+    [
+      { opacity: "0" },
+      { opacity: "1" },
+      {opacity: "0"}
+    ], 
+    {
+      duration: 3000,
+    }
+  );
+
   setLocalStorage(tasks);
 }
 
@@ -59,8 +92,6 @@ function storageTasks() {
       li.append(cb, p, btn);
       list.append(li);
     }
-  } else {
-    alert("teste");
   }
 }
 
