@@ -52,7 +52,7 @@ function errorInsertTask() {
   // CardNotify Styles
   cardNotify.style.background = "#eb7979";
   imgCardNotify.src = "assets/img/error.png";
-  h3CardNotify.innerText = `O nome da tarefa não pode ser vazio!`;
+  h3CardNotify.innerText = `O nome da tarefa não pode estar vazio!`;
 
   cardAnimate();
 }
