@@ -39,11 +39,11 @@ List Container Styles
   width: 516px;
   padding: 3em;
   display: flex;
-  border-radius: 10px;
-  border: 3px solid rgb(14, 40, 58);
   max-width: 546px;
   text-align: center;
+  border-radius: 10px;
   flex-direction: column;
+  border: 3px solid rgb(14, 40, 58);
   background-color: rgb(255, 215, 245);
 }
 
@@ -174,7 +174,7 @@ Reponsive Styles
   }
 }
 
-@media screen and (max-width: 372px) {
+@media screen and (max-width: 379px) {
   .task-input {
     width: 100%;
     margin-bottom: 10px;
@@ -201,8 +201,13 @@ Reponsive Styles
   }
 
   .btn {
-    padding: 0.3em;
+    padding: 0.7em;
     width: 70%;
     border-radius: 3px;
+  }
+
+  .card-notify {
+    flex-direction: column;
+    width: 100px;
   }
 }
