@@ -134,6 +134,36 @@ li .btn:hover {
 
 /*  
 =====
+Card Styles
+=====
+*/
+.card-notify {
+  gap: 1em;
+  top: 10px;
+  opacity: 0;
+  right: 10px;
+  width: 300px;
+  padding: 10px;
+  display: flex;
+  position: fixed;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(213, 231, 255);
+  background-color: #eb7979;
+}
+
+.card-notify h3 {
+  word-wrap: break-word;
+}
+
+.card-notify img {
+  height: 50px;
+  width: auto;
+}
+
+/*  
+=====
 Reponsive Styles
 =====
 */
