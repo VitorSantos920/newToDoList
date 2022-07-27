@@ -8,13 +8,14 @@
     <meta name="description" content="To Do List App!" />
     <meta name="keywords" content="Todo, List, App, Tasks" />
     <title>To Do List App</title>
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./assets/css/style.css" />
     <script src="./assets/js/script.js" defer></script>
   </head>
   <body>
     <template>
       <li>
-        <input type="checkbox" onfocus="finishTask(this.parentElement)" />
+        <input type="checkbox" onchange="finishTask(this.parentElement)"/>
         <p class="desc-item"></p>
         <button class="btn" onclick="removeTask(this.parentElement)">
           Remover
@@ -27,7 +28,7 @@
     </section>
     <main class="list">
       <header class="header-list">
-        <img src="./assets/img/check.png" alt="" />
+        <img src="./assets/img/logo.png" alt="" />
         <h1>To-Do List App</h1>
       </header>
       <p>
