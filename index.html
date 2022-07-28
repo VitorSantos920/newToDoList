@@ -8,14 +8,21 @@
     <meta name="description" content="To Do List App!" />
     <meta name="keywords" content="Todo, List, App, Tasks" />
     <title>To Do List App</title>
-    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="./assets/img/logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./assets/css/default.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <script src="./assets/js/script.js" defer></script>
+    <link rel="stylesheet" href="./assets/css/modal.css" />
+    <script src="./assets/js/main.js" defer></script>
+    <script src="./assets/js/modal&finishedTasks.js" defer></script>
   </head>
   <body>
-    <template>
+    <template class="tasks">
       <li>
-        <input type="checkbox" onchange="finishTask(this.parentElement)"/>
+        <input type="checkbox" onchange="finishTask(this.parentElement)" />
         <p class="desc-item"></p>
         <button class="btn" onclick="removeTask(this.parentElement)">
           Remover
@@ -46,7 +53,28 @@
 
         <input class="btn" type="submit" value="Adicionar" />
       </section>
+
       <h2>Suas Tarefas</h2>
+
+      <button class="btn" id="open-modal">Ver Suas Tarefas Concluídas</button>
+      <section class="modal-content">
+
+        <div id="fade" class="hide"></div>
+
+        <div id="modal" class="hide">
+          <header class="header-modal">
+            <h1 class="title-modal">Tarefas Concluídas</h1>
+            <button class="btn" id="close-modal">Fechar</button>
+          </header>
+
+          <main class="finished-tasks">
+            <ul class="list-finished-tasks">
+            </ul>
+          </main>
+        </div>
+
+      </section>
+
       <section>
         <ul class="list-task"></ul>
       </section>
