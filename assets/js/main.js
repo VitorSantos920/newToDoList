@@ -1,8 +1,7 @@
 let tasks = [];
-let finishedTasks = [];
 
 const list = document.querySelector(".list-task");
-const template = document.querySelector("template");
+const template = document.querySelector(".tasks");
 
 // CardNotify & Children's
 const cardNotify = document.querySelector(".card-notify");
@@ -39,7 +38,7 @@ function addTask(task, taskDesc) {
   // CardNotify Styles
   cardNotify.style.background = "#94ff94";
   imgCardNotify.src = "assets/img/added.png";
-  h3CardNotify.innerText = `Tarefa: "${p.innerText}" Adicionada com Sucesso!`;
+  h3CardNotify.innerHTML = `Tarefa: <i>"${p.innerText}"</i><br>Adicionada com Sucesso!`;
 
   cardAnimate();
 
@@ -65,7 +64,7 @@ function removeTask(item) {
   // CardNotify Styles
   cardNotify.style.background = "#eb7979";
   imgCardNotify.src = "assets/img/removed.png";
-  h3CardNotify.innerText = `Tarefa: "${item.children[1].innerText}" Removida com Sucesso!`;
+  h3CardNotify.innerHTML = `Tarefa: <i>"${item.children[1].innerText}"</i></br>Removida com Sucesso!`;
 
   cardAnimate();
   setLocalStorage(tasks);
@@ -101,28 +100,6 @@ function storageTasks() {
       li.append(cb, p, btn);
       list.append(li);
     }
-  }
-}
-
-function finishTask(li) {
-  let checkbox = li.children[0];
-  let p = li.children[1];
-
-  // Verifando quando a checkbox está sendo marcada/desmarcada.
-  if (checkbox.checked) {
-    // Styles
-    p.style.textDecoration = "line-through";
-    p.style.color = "gray";
-
-    // Array
-    finishedTasks.push(p.innerText);
-  } else {
-    // Styles
-    p.style.textDecoration = "none";
-    p.style.color = "black";
-
-    // Removendo do Array pelo conteúdo do index
-    finishedTasks.splice(finishedTasks.indexOf(li.children[1].innerHTML), 1);
   }
 }
 
