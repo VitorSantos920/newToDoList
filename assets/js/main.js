@@ -1,4 +1,5 @@
 let tasks = [];
+let finishedTasks = [];
 
 const list = document.querySelector(".list-task");
 const template = document.querySelector(".tasks");
@@ -35,12 +36,11 @@ function addTask(task, taskDesc) {
   li.append(cb, p, btn);
   list.append(li);
 
-  // CardNotify Styles
-  cardNotify.style.background = "#94ff94";
-  imgCardNotify.src = "assets/img/added.png";
-  h3CardNotify.innerHTML = `Tarefa: <i>"${p.innerText}"</i><br>Adicionada com Sucesso!`;
-
-  cardAnimate();
+  cardStyles(
+    "#94ff94",
+    "assets/img/added.png",
+    `Tarefa: <i>"${p.innerText}"</i><br>Adicionada com Sucesso!`
+  );
 
   // User Interaction
   task.value = "";
@@ -53,7 +53,11 @@ function errorInsertTask() {
   imgCardNotify.src = "assets/img/error.png";
   h3CardNotify.innerText = `O nome da tarefa não pode estar vazio!`;
 
-  cardAnimate();
+  cardStyles(
+    "#eb7979",
+    "assets/img/error.png",
+    `O nome da tarefa não pode estar vazio!`
+  );
 }
 
 function removeTask(item) {
@@ -61,16 +65,19 @@ function removeTask(item) {
   list.removeChild(item); // Tela
   tasks.splice(remoteIndex, 1); // Array
 
-  // CardNotify Styles
-  cardNotify.style.background = "#eb7979";
-  imgCardNotify.src = "assets/img/removed.png";
-  h3CardNotify.innerHTML = `Tarefa: <i>"${item.children[1].innerText}"</i></br>Removida com Sucesso!`;
+  cardStyles(
+    "#eb7979",
+    "assets/img/removed.png",
+    `Tarefa: <i>"${item.children[1].innerText}"</i></br>Removida com Sucesso!`
+  );
 
-  cardAnimate();
   setLocalStorage(tasks);
 }
 
-function cardAnimate() {
+function cardStyles(backgroundCard, imgCard, h3Card) {
+  cardNotify.style.background = backgroundCard;
+  imgCardNotify.src = imgCard;
+  h3CardNotify.innerHTML = h3Card;
   cardNotify.animate(
     [{ opacity: "0" }, { opacity: "1" }, { opacity: "0.5" }, { opacity: "0" }],
     {
@@ -104,3 +111,68 @@ function storageTasks() {
 }
 
 storageTasks();
+
+// ==================================================
+// Modal
+const openModalButton = document.querySelector("#open-modal");
+const closeModalButton = document.querySelector("#close-modal");
+const modal = document.querySelector("#modal");
+const fade = document.querySelector("#fade");
+
+let listFinishedTasks = document.querySelector(".list-finished-tasks");
+
+function finishTask(li) {
+  let checkbox = li.children[0];
+  let p = li.children[1];
+
+  // Verifando quando a checkbox está sendo marcada/desmarcada.
+  if (checkbox.checked) {
+    // Styles
+    p.style.textDecoration = "line-through";
+    p.style.color = "gray";
+
+    // Array
+    finishedTasks.push(p.innerText);
+  } else {
+    // Styles
+    p.style.textDecoration = "none";
+    p.style.color = "black";
+
+    // Removendo do Array pelo conteúdo do index
+    finishedTasks.splice(finishedTasks.indexOf(li.children[1].innerHTML), 1);
+  }
+}
+
+const toggleModal = () => {
+  modal.classList.toggle("hide");
+  fade.classList.toggle("hide");
+};
+
+[openModalButton, closeModalButton, fade].forEach((el) => {
+  el.addEventListener("click", () => toggleModal());
+});
+
+[closeModalButton, fade].forEach((el) => {
+  el.addEventListener("click", () => resetList());
+});
+
+openModalButton.addEventListener("click", () => {
+  if (finishedTasks.length > 0) {
+    for (let i = 0; i < finishedTasks.length; i++) {
+      let li = document.createElement("li");
+      let p = document.createElement("p");
+      p.classList.add("desc-item");
+      p.innerHTML = finishedTasks[i];
+      li.appendChild(p);
+      listFinishedTasks.appendChild(li);
+    }
+  } else {
+    let h1 = document.createElement("h1");
+    h1.textContent = "Você ainda não possui tarefas concluídas";
+    listFinishedTasks.append(h1);
+  }
+});
+
+let resetList = () => {
+  listFinishedTasks.innerHTML = "";
+};
