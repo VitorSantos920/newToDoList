@@ -18,7 +18,7 @@ btnSubmit.addEventListener("click", () => {
   taskDesc ? addTask(task, taskDesc) : errorInsertTask();
 });
 
-// add
+// ADD
 function addTask(task, taskDesc) {
   let items = template.content.cloneNode(true);
 
@@ -29,7 +29,7 @@ function addTask(task, taskDesc) {
 
   p.innerText = taskDesc;
 
-  tasks.push(taskDesc);
+  tasks.push({ taskName: taskDesc, isConcluded: false });
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
@@ -47,6 +47,7 @@ function addTask(task, taskDesc) {
   task.focus();
 }
 
+// ERROR
 function errorInsertTask() {
   // CardNotify Styles
   cardNotify.style.background = "#eb7979";
@@ -60,15 +61,22 @@ function errorInsertTask() {
   );
 }
 
+// REMOVE
 function removeTask(item) {
-  let remoteIndex = tasks.indexOf(item.children[1].innerHTML); // Índice do elemento removido
+  let indexTaskRemoved = tasks.findIndex(
+    (task) => task.taskName === item.children[1].innerHTML
+  );
+
   list.removeChild(item); // Tela
-  tasks.splice(remoteIndex, 1); // Array
+
+  tasks.splice(indexTaskRemoved, 1);
+
+  finishedTasks.splice(finishedTasks.indexOf(item.children[1].innerHTML), 1);
 
   cardStyles(
     "#eb7979",
     "assets/img/removed.png",
-    `Tarefa: <i>"${item.children[1].innerText}"</i></br>Removida com Sucesso!`
+    `Tarefa: <i>"${item.children[1].innerHTML}"</i></br>Removida com Sucesso!`
   );
 
   setLocalStorage(tasks);
@@ -91,18 +99,25 @@ function setLocalStorage(tasks) {
   localStorage.setItem("tasks", JSON.stringify(tasks)); // Atualizando LS
 }
 
-function storageTasks() {
+function storedTasks() {
   if (localStorage.getItem("tasks")) {
     tasks = JSON.parse(localStorage.getItem("tasks"));
+
     for (let i = 0; i < tasks.length; i++) {
       let items = template.content.cloneNode(true);
       let li = items.querySelector("li");
 
       let cb = items.querySelector("[type='checkbox']");
+
       let p = items.querySelector(".desc-item");
       let btn = items.querySelector("button");
 
-      p.innerText = tasks[i];
+      p.innerText = tasks[i].taskName;
+      cb.checked = tasks[i].isConcluded;
+
+      tasks[i].isConcluded
+        ? taskDescStyles(i, p, "line-through", "gray", true)
+        : taskDescStyles(i, p, "none", "black", false);
 
       li.append(cb, p, btn);
       list.append(li);
@@ -110,7 +125,7 @@ function storageTasks() {
   }
 }
 
-storageTasks();
+storedTasks();
 
 // ==================================================
 // Modal
@@ -123,24 +138,33 @@ let listFinishedTasks = document.querySelector(".list-finished-tasks");
 
 function finishTask(li) {
   let checkbox = li.children[0];
-  let p = li.children[1];
+  let taskDesc = li.children[1];
+
+  let completedTaskIndex = tasks.findIndex(
+    (task) => task.taskName === taskDesc.innerHTML
+  );
 
   // Verifando quando a checkbox está sendo marcada/desmarcada.
   if (checkbox.checked) {
-    // Styles
-    p.style.textDecoration = "line-through";
-    p.style.color = "gray";
+    taskDescStyles(completedTaskIndex, taskDesc, "line-through", "gray", true);
+    setLocalStorage(tasks);
 
     // Array
-    finishedTasks.push(p.innerText);
+    finishedTasks.push(taskDesc.innerText);
   } else {
-    // Styles
-    p.style.textDecoration = "none";
-    p.style.color = "black";
+    taskDescStyles(completedTaskIndex, taskDesc, "none", "black", false);
+
+    setLocalStorage(tasks);
 
     // Removendo do Array pelo conteúdo do index
     finishedTasks.splice(finishedTasks.indexOf(li.children[1].innerHTML), 1);
   }
+}
+
+function taskDescStyles(index, taskDesc, decoration, color, conclusionStatus) {
+  taskDesc.style.textDecoration = decoration;
+  taskDesc.style.color = color;
+  tasks[index].isConcluded = conclusionStatus;
 }
 
 const toggleModal = () => {
