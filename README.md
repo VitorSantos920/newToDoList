@@ -15,7 +15,7 @@ Projeto de Lista de Tarefas: **_Digite tarefas, marque-as como concluída ou rem
 - JSON & Methods (Parse/Stringify).
 - Localstorage & Methods (Get/Set).
 - Elements Clone.
-- Arrays Manipulation & Metodos.
+- Arrays Manipulation & Method.
 - Responsiveness & Responsible Units of Measure.
 - Functions, Parameters and Arguments.
 - Code Refactoring & Organization.
@@ -26,4 +26,5 @@ Projeto de Lista de Tarefas: **_Digite tarefas, marque-as como concluída ou rem
 
 ## Imagem do Projeto
 
-<img src="assets/img/imgToGithub.png">
+<img src="assets/img/img1ToGithub.png">
+<img src="assets/img/img2ToGithub.png">
