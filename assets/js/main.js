@@ -79,7 +79,8 @@ function removeTask(item) {
     `Tarefa: <i>"${item.children[1].innerHTML}"</i></br>Removida com Sucesso!`
   );
 
-  setLocalStorage(tasks);
+  setTasksStored(tasks);
+  setFinishedTasksStored(finishedTasks)
 }
 
 function cardStyles(backgroundCard, imgCard, h3Card) {
@@ -95,14 +96,18 @@ function cardStyles(backgroundCard, imgCard, h3Card) {
   );
 }
 
-function setLocalStorage(tasks) {
+function setTasksStored(tasks) {
   localStorage.setItem("tasks", JSON.stringify(tasks)); // Atualizando LS
+}
+
+function setFinishedTasksStored(finishedTasks) {
+  localStorage.setItem("finishedTasks", JSON.stringify(finishedTasks)); // Atualizando LS
+
 }
 
 function storedTasks() {
   if (localStorage.getItem("tasks")) {
     tasks = JSON.parse(localStorage.getItem("tasks"));
-
     for (let i = 0; i < tasks.length; i++) {
       let items = template.content.cloneNode(true);
       let li = items.querySelector("li");
@@ -125,10 +130,16 @@ function storedTasks() {
   }
 }
 
-storedTasks();
+function storedFinishedTasks() {
+  if(localStorage.getItem('finishedTasks')){
+    finishedTasks = JSON.parse(localStorage.getItem('finishedTasks'))
+  }
+}
 
-// ==================================================
-// Modal
+storedTasks();
+storedFinishedTasks();
+
+// ======== Modal ============
 const openModalButton = document.querySelector("#open-modal");
 const closeModalButton = document.querySelector("#close-modal");
 const modal = document.querySelector("#modal");
@@ -147,17 +158,22 @@ function finishTask(li) {
   // Verifando quando a checkbox está sendo marcada/desmarcada.
   if (checkbox.checked) {
     taskDescStyles(completedTaskIndex, taskDesc, "line-through", "gray", true);
-    setLocalStorage(tasks);
+    setTasksStored(tasks);
 
     // Array
     finishedTasks.push(taskDesc.innerText);
+
+    localStorage.setItem('finishedTasks', JSON.stringify(finishedTasks));
+
   } else {
     taskDescStyles(completedTaskIndex, taskDesc, "none", "black", false);
 
-    setLocalStorage(tasks);
+    setTasksStored(tasks);
 
     // Removendo do Array pelo conteúdo do index
-    finishedTasks.splice(finishedTasks.indexOf(li.children[1].innerHTML), 1);
+    finishedTasks.splice(finishedTasks.indexOf(taskDesc.innerHTML), 1);
+
+    localStorage.setItem('finishedTasks', JSON.stringify(finishedTasks));
   }
 }
 
@@ -182,6 +198,7 @@ const toggleModal = () => {
 
 openModalButton.addEventListener("click", () => {
   if (finishedTasks.length > 0) {
+    
     for (let i = 0; i < finishedTasks.length; i++) {
       let li = document.createElement("li");
       let p = document.createElement("p");
