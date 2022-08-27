@@ -12,6 +12,7 @@ List Container Styles
   height: min-content;
   text-align: center;
   border-radius: 10px;
+  justify-content: center;
   flex-direction: column;
   border: 3px solid rgb(14, 40, 58);
   background-color: rgb(255, 215, 245);
@@ -58,7 +59,6 @@ Task-input Styles
 .task-input {
   outline: 0;
   width: 70%;
-  min-width: 100px;
   margin-right: 5px;
 }
 
@@ -93,6 +93,7 @@ li {
   justify-content: space-between;
   box-shadow: 1px 1px 6px 1px black;
   background-color: rgb(253, 190, 237);
+  border-radius: 10px;
   transition: 1s;
 }
 
@@ -154,7 +155,7 @@ Reponsive Styles
   }
 
   .btn {
-    width: 60%;
+    width: 100%;
   }
 }
 
@@ -175,7 +176,6 @@ Reponsive Styles
 
   .btn {
     padding: 0.7em;
-    width: 70%;
     border-radius: 3px;
   }
 
