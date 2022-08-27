@@ -24,3 +24,12 @@ body {
 ul {
   list-style: none;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: rgb(84, 133, 165);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 215, 245);
+}
